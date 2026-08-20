@@ -102,16 +102,6 @@
     align-items:center;
     gap:8px;
   }
-  .zone-count{
-    font-family:'JetBrains Mono',monospace;
-    font-size:10.5px;
-    font-weight:600;
-    color:var(--ink-soft);
-    background:rgba(255,255,255,.6);
-    padding:2px 7px;
-    border-radius:10px;
-    margin-left:2px;
-  }
   .cards-row{
     display:grid;
     grid-template-columns:repeat(auto-fill, minmax(195px, 1fr));
@@ -175,7 +165,7 @@
     border-radius:20px;
     white-space:nowrap;
   }
-  .badge.platform{background:#F0EAE5; color:var(--ink-soft);}
+  .badge.platform{background:#F0EAE5; color:var(--ink-soft); white-space:normal; max-width:100%;}
   .badge.lock{background:var(--amber-bg); color:var(--amber); display:flex; align-items:center; gap:3px;}
   .badge.soon{background:#EEE9E4; color:var(--ink-soft);}
 
@@ -459,7 +449,6 @@ function render(){
       <div class="zone-label">
         <span class="zone-dot" style="background:${zone.color}"></span>
         <h2>${zone.zone}</h2>
-        <span class="zone-count">${zone.tools.length}</span>
       </div>
       <div class="cards-row">${zone.tools.map(renderCard).join("")}</div>
     </section>
