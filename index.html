@@ -79,10 +79,10 @@
 
   main{
     flex:1;
-    padding:22px;
+    padding:18px 22px;
     display:grid;
-    grid-template-columns:repeat(4, 1fr);
-    gap:16px;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
     align-items:start;
     max-width:1500px;
     width:100%;
@@ -92,16 +92,30 @@
   .zone{
     background:#F2E9E2;
     border-radius:16px;
-    padding:14px;
+    padding:13px 15px;
     display:flex;
     flex-direction:column;
-    gap:10px;
+    gap:9px;
   }
   .zone-label{
     display:flex;
     align-items:center;
     gap:8px;
-    padding:2px 4px 4px;
+  }
+  .zone-count{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10.5px;
+    font-weight:600;
+    color:var(--ink-soft);
+    background:rgba(255,255,255,.6);
+    padding:2px 7px;
+    border-radius:10px;
+    margin-left:2px;
+  }
+  .cards-row{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(195px, 1fr));
+    gap:10px;
   }
   .zone-dot{width:9px; height:9px; border-radius:50%; flex-shrink:0;}
   .zone-label h2{
@@ -263,11 +277,12 @@
     padding:0 20px 16px;
   }
 
-  @media (max-width: 1150px){
-    main{grid-template-columns:repeat(2, 1fr);}
+  @media (max-width: 900px){
+    main{grid-template-columns:1fr;}
   }
   @media (max-width: 620px){
-    main{grid-template-columns:1fr; padding:14px;}
+    main{padding:14px; gap:12px;}
+    .cards-row{grid-template-columns:1fr;}
     header.bar{padding:14px 16px;}
     .bar-note{display:none;}
   }
@@ -314,15 +329,6 @@ const DATA = [
     ]
   },
   {
-    zone: "Comercialización",
-    color: "#1F4B4D",
-    tools: [
-      { name:"Radar público", platform:"ChatGPT", icon:"radar", url:"https://radar-licitaciones-xr.playgoxp.chatgpt.site/", protected:true, defaultUser:"playgoxp",
-        slack:[{label:"Alertas de licitaciones", handle:"@playgo_radarlicitaciones"}] },
-      { name:"Radar privado", platform:"Claude · GitHub · Firebase", icon:"radar", url:"https://gersonbeltran-geo.github.io/radar-privado/", protected:true }
-    ]
-  },
-  {
     zone: "Gestión interna",
     color: "#A83E33",
     tools: [
@@ -333,6 +339,15 @@ const DATA = [
           {label:"Aviso equipo", handle:"@playgo_status"}
         ] },
       { name:"Agente para voces", platform:"Claude", icon:"mic", url:"https://loc-voice-studio.onrender.com/", protected:false }
+    ]
+  },
+  {
+    zone: "Comercialización",
+    color: "#1F4B4D",
+    tools: [
+      { name:"Radar público", platform:"ChatGPT", icon:"radar", url:"https://radar-licitaciones-xr.playgoxp.chatgpt.site/", protected:true, defaultUser:"playgoxp",
+        slack:[{label:"Alertas de licitaciones", handle:"@playgo_radarlicitaciones"}] },
+      { name:"Radar privado", platform:"Claude · GitHub · Firebase", icon:"radar", url:"https://gersonbeltran-geo.github.io/radar-privado/", protected:true }
     ]
   },
   {
@@ -440,8 +455,9 @@ function render(){
       <div class="zone-label">
         <span class="zone-dot" style="background:${zone.color}"></span>
         <h2>${zone.zone}</h2>
+        <span class="zone-count">${zone.tools.length}</span>
       </div>
-      ${zone.tools.map(renderCard).join("")}
+      <div class="cards-row">${zone.tools.map(renderCard).join("")}</div>
     </section>
   `).join("");
   attachHandlers();
